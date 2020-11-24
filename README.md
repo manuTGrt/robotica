@@ -16,6 +16,8 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 - Luego, intentamos mover la cabeza, cambiando la referencia de los grados indicados previamente a un valor variable, el cual variamos con la rueda, teniendo en cuenta el valor de la ganancia para ajustarlo a su mejor valor, en mi caso 0.3.
 - Esto lo podemos ver con las diferentes gráficas generadas.
 
+![Movimiento de cabeza con K=0.3](https://github.com/manuTGrt/robotica/blob/main/fotos/cabeza_k0%2C3_Movido_sin(90g)_color.fig)
+
 Mira **Deployment** para conocer como desplegar el proyecto.
 
 

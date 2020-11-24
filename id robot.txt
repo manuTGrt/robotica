@@ -1,0 +1,3 @@
+id: 001653819d8f
+brick hw: v0.70
+brick fw: v1.04h

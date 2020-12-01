@@ -37,6 +37,9 @@ crear_robot(3,3,0,0,SR_robot,SR_cabeza)
 %end
 %plot(t,angulo_cabeza)
 
+%defino el mapa
+mapa=[];
+
 asterisco=animatedline('Marker','*','Color','r');
 ref=animatedline('Marker','.','Color','g');
 distance=animatedline('Marker','^','Color','b');
@@ -73,17 +76,24 @@ while readTouch(mytouchsensor)==0
     %actuación de los motores
     motor_B.Speed=power;
     
-    mover_robot(0,0,0,readRotation(motor_B)*pi/180,SR_robot,SR_cabeza);
+    %leo la distancia
+    distancia(i) = double(readDistance(mysonicsensor))*100;
+    
+    %muevo la cabeza del robot y apunto la distancia a la que se encuentran
+    %los objetos
+    mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabeza,double(distancia(i)),mapa);
     
     %pintando gráfica
     %tiempo(i)=toc(tstart);
     y(i)=double(readRotation(motor_B));
     x(i)=double(referencia(i));
-    distancia(i) = double(readDistance(mysonicsensor))*10;
-    addpoints(asterisco,tiempo(i),y(i));
-    addpoints(ref,tiempo(i),x(i));
-    addpoints(distance,tiempo(i),distancia(i));
+    
+    %addpoints(asterisco,tiempo(i),y(i));
+    %addpoints(ref,tiempo(i),x(i));
+    %addpoints(distance,tiempo(i),distancia(i));
+    
+    
     drawnow
 end
-
+save('mapa.dat','mapa','-ascii');
 stop(motor_B);

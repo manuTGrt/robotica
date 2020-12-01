@@ -3,7 +3,7 @@ function crear_robot(x,y,theta,alfa,robot,cabeza)
 %   Detailed explanation goes here
 %cuerpo
 R=rectangle('Position', [-1.5 -1 4 2],'Parent',robot);
-axis([-10 10 -10 10])
+%axis([-10 10 -10 10])
 
 M=makehgtform('translate',[x y 0], 'zrotate',theta);
 robot.Matrix=M;

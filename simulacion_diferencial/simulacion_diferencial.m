@@ -57,15 +57,15 @@ while (t0+h*k) < tf,
     %W=-axis(joy,1);
     %V0=-axis(joy,2);
     
-    V0=5;
-    R=10;
-    rho=1/R;
-    W=V0*rho;
+    %V0=5;
+    %R=10;
+    %rho=1/R;
+    %W=V0*rho;
     
     %--------------
     %Modelo inverso
-    velocidad_derecha=(1/radio_rueda)*(V0+W*l);
-    velocidad_izquierda=(1/radio_rueda)*(V0-W*l);
+    %velocidad_derecha=(1/radio_rueda)*(V0+W*l);
+    %velocidad_izquierda=(1/radio_rueda)*(V0-W*l);
     %--------------
 %velocidad_derecha=2.1;
 %velocidad_izquierda=2.1;
@@ -75,14 +75,32 @@ while (t0+h*k) < tf,
 
 
  
- conduccion=[velocidad_derecha velocidad_izquierda];
+ %conduccion=[velocidad_derecha velocidad_izquierda];
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
  %para representar el punto onjetivo sobre la trayectoria
  
- punto=[30 30];
+ punto=[40 40];
 
+ delta = (pose(1,k)-punto(1))*sin(pose(3,k))-(pose(2,k)-punto(2))*cos(pose(3,k));
+    LH=sqrt((pose(1,k)-punto(1))^2 + (pose(2,k)-punto(2))^2);
+    rho=2*delta/LH^2;
+    
+    V0=1*LH;
+    if(V0>5)
+        V0=5;
+    end
+    
+    W=V0*rho;
+    
+    %--------------
+    %Modelo inverso
+    velocidad_derecha=(1/radio_rueda)*(V0+W*l);
+    velocidad_izquierda=(1/radio_rueda)*(V0-W*l);
+    %--------------
+    
+    conduccion=[velocidad_derecha velocidad_izquierda];
     
 %metodo de integración ruge-kuta
 

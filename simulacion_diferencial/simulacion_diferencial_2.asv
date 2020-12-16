@@ -91,9 +91,12 @@ while (t0+h*k) < tf,
  orden_minimo= minima_distancia_new (camino, pose(1:2,k));
  
  %para representar el punto onjetivo sobre la trayectoria
- if(orden_minimo=
+ %hay que corregir el Look_ahead
  Look_ahead=10;
- 
+ seguir=orden_minimo+Look_ahead
+ if(orden_minimo+Look_ahead>length(camino))
+     Look_ahead=Look_ahead-1;
+ end
  punto=[camino(orden_minimo+Look_ahead,1), camino(orden_minimo+Look_ahead, 2)];
  
  %punto=[70 40];

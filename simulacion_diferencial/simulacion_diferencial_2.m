@@ -93,8 +93,11 @@ while (t0+h*k) < tf,
  %para representar el punto onjetivo sobre la trayectoria
  %hay que corregir el Look_ahead
  Look_ahead=10;
- 
- punto=[camino(orden_minimo+Look_ahead,1), camino(orden_minimo+Look_ahead, 2)];
+ seguir=orden_minimo+Look_ahead;
+ if(orden_minimo+Look_ahead>length(camino))
+     seguir=length(camino);
+ end
+ punto=[camino(seguir,1), camino(seguir, 2)];
  
  %punto=[70 40];
 

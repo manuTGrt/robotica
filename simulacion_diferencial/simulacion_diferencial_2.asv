@@ -17,18 +17,26 @@ global pose
 global punto
 %cargamos el camino
 
-camino=load('camino.dat');
+%camino=load('camino.dat');
+
+x=10:0.5:80;
+y=10*ones(size(x));
+
+camino=[x' y'];
 
 l=3.5; %semidistancia entre rudas delanteras y traseras, tambien definido en modelo
 radio_rueda=1;
 
 %Condiciones iniciales 
 pose0=[0; 0; 0];
+%pose0=[camino(end,1); camino(end,2); pi/2]; %el último punto es el mismo
+%que el primero
+
 
 t0=0;
 
 %final de la simulación
-tf=15;
+tf=40;
 
 %paso de integracion
 h=0.1;
@@ -79,13 +87,23 @@ while (t0+h*k) < tf,
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
- %para representar el punto onjetivo sobre la trayectoria
+ %punto más cercano
+ orden_minimo= minima_distancia_new (camino, pose(1:2,k));
  
- punto=[70 40];
+ %para representar el punto onjetivo sobre la trayectoria
+ if(orden_minimo=
+ Look_ahead=10;
+ 
+ punto=[camino(orden_minimo+Look_ahead,1), camino(orden_minimo+Look_ahead, 2)];
+ 
+ %punto=[70 40];
 
- delta = (pose(1,k)-punto(1))*sin(pose(3,k))-(pose(2,k)-punto(2))*cos(pose(3,k));
+    delta = (pose(1,k)-punto(1))*sin(pose(3,k))-(pose(2,k)-punto(2))*cos(pose(3,k));
     LH=sqrt((pose(1,k)-punto(1))^2 + (pose(2,k)-punto(2))^2);
     rho=2*delta/LH^2;
+    
+    %V0=10;
+    Distancia_al_final=sqrt((pose(1,k)-camino(end,1))^2 + (pose(2,k)-camino(end,2))^2);
     
     V0=1*LH;
     if(V0>10)
@@ -93,11 +111,14 @@ while (t0+h*k) < tf,
     end
     
     W=V0*rho;
+    %-----------------------------------------
     
     %--------------
     %Modelo inverso
     velocidad_derecha=(1/radio_rueda)*(V0+W*l);
+    %velocidad_derecha=velocidad*(1+1*rho)/radio_rueda;
     velocidad_izquierda=(1/radio_rueda)*(V0-W*l);
+    %velocidad_izquierda=velocidad*(1+1*rho)/radio_rueda;
     %--------------
     
     conduccion=[velocidad_derecha velocidad_izquierda];

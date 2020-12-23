@@ -22,6 +22,7 @@ clear t
     clear referencia_cabeza
     clear distancia;
     clear error_sonar;
+    clear referencia;
 
 %variables control angulo del robot
     clear ang_vel;
@@ -57,13 +58,13 @@ clear t
 %----------------------------
 
 % Declaración de sensores
-    Detecta_colision = touchSensor(mi_Robot,2); %Switch conectado al puerto 1.
-    Pulsador = touchSensor(mi_Robot,1); %Switch conectado al puerto 2.
+    Detecta_colision = touchSensor(mi_Robot,1); %Switch conectado al puerto 1.
+    Pulsador = touchSensor(mi_Robot,2); %Switch conectado al puerto 2.
     Sonar = sonicSensor(mi_Robot); %definición del sonar
 
 % Declaración de los motores
-    motor_cabeza = motor(mi_Robot,'B') %motor de la cabeza
-    motor_izquierdo = motor(mi_Robot,'A') %Motor izquierdo
+    motor_cabeza = motor(mi_Robot,'D') %motor de la cabeza
+    motor_izquierdo = motor(mi_Robot,'B') %Motor izquierdo
     motor_derecho = motor(mi_Robot,'C') %Motor_derecho
 
 %Activacion de los motores
@@ -107,10 +108,11 @@ clear t
     y(i)=0;
     theta(i)=0;
     yaw(i)=0;
+    referencia_yaw=yaw(i);
     estado=1; %estado inicial
 
 
-    stop_distance=35; %distancia de para ante obstáculo
+    stop_distance=20; %distancia de para ante obstáculo
     t_marcha_atras=2; %tiempo de marcha hacia atrás.
     t_giro=1.5; %tiempo de giro sobre si mismo
     transicion=1;% inicializa la variable que marca el inicio el mov de la cabeza
@@ -153,8 +155,8 @@ while  (readTouch(Pulsador)==0)
     %-----------------------------------------------
     % Representa el robot
     %------------------------------------
-%         mapa=pinta_robot_v3(x(i),y(i),theta(i),double(giro_cabeza(i))*pi/180,SR_robot,SR_cabeza,distancia(i),mapa);
-%         drawnow   
+         mapa=pintar_robot_v2(x(i),y(i),theta(i),double(giro_cabeza(i))*pi/180,SR_robot,SR_cabeza,distancia(i),mapa);
+         drawnow   
         %---------------------------------------
 
     %muestra el estado del sistema
@@ -204,6 +206,8 @@ while  (readTouch(Pulsador)==0)
                 if (t(i)>(desfase+Periodo+1.5)) %espera a que pasen el desfase+periodo mas 2 s
                     Power_cabeza=0; %para el giro de la cabeza
                     estado=4; %la transición a estado girando robot
+                    angulo_girar=(calculo_referencia(distancia,giro_cabeza,transicion))*1.2; %calculo el ángulo a girar
+                    referencia_yaw=(angulo_girar+yaw(i));
                     transicion=i; %indice que marca el inicio del estado 4
                 end
 
@@ -231,10 +235,20 @@ while  (readTouch(Pulsador)==0)
         switch estado
         
             case 1 %andando hacia delante
-            %establece los valores de control 
+            %Error en orientación del robot
+                error_yaw(i)=(referencia_yaw-yaw(i));
+                
+            %Ganancia del controlador
+                ky=0.6;
+            %Control proporcional
+                control_yaw=int8(ky*error_yaw(i));
                 vel=20;
-                Power1=vel;
-                Power2=vel;
+                Power1=vel+control_yaw;
+                Power2=vel-control_yaw;  
+            %establece los valores de control 
+                %vel=20;
+                %Power1=vel;
+                %Power2=vel;
                 
              
             case 2 %parando
@@ -259,9 +273,14 @@ while  (readTouch(Pulsador)==0)
                     Power_cabeza =int8(controlador); 
        
             case 4 %girando sobre si mismo
-                vel=15;
-                Power1=vel;
-                Power2=-vel;    
+                %error en la orientación del robot
+                    error_yaw(i)=(referencia_yaw-yaw(i));
+                %Ganancia del controlador
+                    k_giro=1.5;
+                %Control proporcional
+                    vel=int8(k_giro*error_yaw(i));
+                    Power1=vel;
+                    Power2=-vel;    
           
             case 5 %andando hacia atrás
                 %establece los valores de control 

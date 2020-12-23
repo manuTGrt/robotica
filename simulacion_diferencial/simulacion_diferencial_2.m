@@ -19,24 +19,53 @@ global punto
 
 %camino=load('camino.dat');
 
-x=10:0.5:80;
-y=10*ones(size(x));
+%x=10:0.5:80;
+%y=10*ones(size(x));
+%xd=70;
+%yd=80;
+%ds=1;
+%phi=atan(yd/xd);
 
-camino=[x' y'];
+%x=0:ds*cos(phi):xd;
+%y=0:ds*sin(phi):yd;
+
+
+
+%camino=[x' y'];
+
+
+
 
 l=3.5; %semidistancia entre rudas delanteras y traseras, tambien definido en modelo
 radio_rueda=1;
 
 %Condiciones iniciales 
-pose0=[0; 0; 0];
+pose0=[0; 0; -pi/4];
+posef=[80; 80; -pi/4];
 %pose0=[camino(end,1); camino(end,2); pi/2]; %el último punto es el mismo
 %que el primero
+%pose0=[10;10;pi];
+
+
+%definir camino
+dd=5;
+da=dd;
+
+posicion_despegue=[pose0(1)+(dd*cos(pose0(3))) pose0(2)+(dd*sin(pose0(3)))];
+posicion_aterriza=[posef(1)+(da*cos(posef(3))) posef(2)+(da*sin(posef(3)))];
+
+xc=[0 posicion_despegue(1) 10 40 60 70 posicion_aterriza(1) 80];
+yc=[0 posicion_despegue(2) 0 40 40 60 posicion_aterriza(2) 80];
+
+ds=1; %distancia entre puntos en cm.
+camino=funcion_spline_cubica_varios_puntos(xc,yc,ds)';
+%--------------------------------
 
 
 t0=0;
 
 %final de la simulación
-tf=40;
+tf=30;
 
 %paso de integracion
 h=0.1;
@@ -92,7 +121,7 @@ while (t0+h*k) < tf,
  
  %para representar el punto onjetivo sobre la trayectoria
  %hay que corregir el Look_ahead
- Look_ahead=10;
+ Look_ahead=5;
  seguir=orden_minimo+Look_ahead;
  if(orden_minimo+Look_ahead>length(camino))
      seguir=length(camino);
@@ -115,7 +144,7 @@ while (t0+h*k) < tf,
     
     W=V0*rho;
     %-----------------------------------------
-    
+    %V0=-V0;
     %--------------
     %Modelo inverso
     velocidad_derecha=(1/radio_rueda)*(V0+W*l);

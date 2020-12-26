@@ -29,7 +29,10 @@ _Esto lo podemos ver con la siguiente gráfica._
 - En color rojo tenemos el movimiento real que ha seguido el motor, con la ganancia en 0.3, como vemos, es casi perfecto.
 
 ##### Sensor sonar 🤖
+_Este es el sensor que irá leyendo los obstáculos que se encuentre, para poder esquivarlos sin sufrir un accidente._
 
+_Lo primero que hicimos fue hacer el dibujo del robot, haciendo que el dibujo moviera la cabeza de manera simulada._
+![Creación del robot](https://github.com/manuTGrt/robotica/blob/main/mi_solucion/Crear_Robot.jpg)
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 

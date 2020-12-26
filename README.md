@@ -34,6 +34,9 @@ _Este es el sensor que irá leyendo los obstáculos que se encuentre, para poder
 _Lo primero que hicimos fue hacer el dibujo del robot, haciendo que el dibujo moviera la cabeza de manera simulada._
 ![Creación del robot](https://github.com/manuTGrt/robotica/blob/main/mi_solucion/Crear_Robot.jpg)
 
+_Posteriormente hacemos que se dibuje una simulación de lo que sería la lectura del sonar, a una distancia fija con un giro de la cabeza._
+![Lectura del sensor sonic simulado](https://github.com/manuTGrt/robotica/blob/main/fotos/lectura_sonic_simulada.jpg)
+
 Mira **Deployment** para conocer como desplegar el proyecto.
 
 

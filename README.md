@@ -11,6 +11,8 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 
 #### Cabeza 🤖
 
+##### Motor de movimiento 🤖
+
 _Empezamos el experimento comprobando que leíamos correctamente el giro de la rueda que posteriormente usaremos para el movimiento de la cabeza. Este movimiento lo hacemos inicialmente con la mano._
 ![Movimiento del motor a mano con K=0.3](https://github.com/manuTGrt/robotica/blob/main/fotos/cabeza_k0,3_Movido_M_A_color.jpg)
 
@@ -25,6 +27,8 @@ _Esto lo podemos ver con la siguiente gráfica._
 ![Movimiento de cabeza con K=0.3](https://github.com/manuTGrt/robotica/blob/main/fotos/cabeza_k0%2C3_Movido_sin(90g)_color.jpg)
 - En color verde tenemos el movimiento que debería seguir el motor en una simulación en la que el movimiento sería perfecto.
 - En color rojo tenemos el movimiento real que ha seguido el motor, con la ganancia en 0.3, como vemos, es casi perfecto.
+
+##### Sensor sonar 🤖
 
 
 Mira **Deployment** para conocer como desplegar el proyecto.

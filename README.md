@@ -32,11 +32,13 @@ _Esto lo podemos ver con la siguiente gráfica._
 _Este es el sensor que irá leyendo los obstáculos que se encuentre, para poder esquivarlos sin sufrir un accidente._
 
 _Lo primero que hicimos fue hacer el dibujo del robot, haciendo que el dibujo moviera la cabeza de manera simulada._
-
 <p align="center"><img width="300px" height="200px" src="https://github.com/manuTGrt/robotica/blob/main/mi_solucion/Crear_Robot.jpg"></p>
 
 _Posteriormente hacemos que se dibuje una simulación de lo que sería la lectura del sonar, a una distancia fija con un giro de la cabeza._
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/lectura_sonic_simulada.jpg"></p>
+
+_Luego lo implementamos en el robot y comprobamos que gira la cabeza y va leyendo los obstáculos que se va encontrando._
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 

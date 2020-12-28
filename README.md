@@ -7,11 +7,15 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 
 ## Cada Pieza 🧩
 
-1. [Cabeza](https://github.com/manuTGrt/robotica#1-cabeza-)
-2. [Cuerpo](https://github.com/manuTGrt/robotica#2-cuerpo-)
+1. [Cuerpo](https://github.com/manuTGrt/robotica#2-cuerpo-)
+2. [Cabeza](https://github.com/manuTGrt/robotica#1-cabeza-)
 3. [Ruedas](https://github.com/manuTGrt/robotica#3-ruedas-)
 
-### 1. Cabeza 🤖
+### 1. Cuerpo 🧠
+
+_El cuerpo del robot es su cerebro, el que controla todos los motores y sensores de cada parte del robot._
+
+### 2. Cabeza 🤖
 
 #### Motor de movimiento ⚙️
 
@@ -41,8 +45,6 @@ _Posteriormente hacemos que se dibuje una simulación de lo que sería la lectur
 
 _Luego lo implementamos en el robot y comprobamos que gira la cabeza y va leyendo los obstáculos que se va encontrando._
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
-
-### 2. Cuerpo 🧠
 
 ### 3. Ruedas 🦿
 

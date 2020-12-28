@@ -7,9 +7,9 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 
 ## Cada Pieza 🧩
 
-1- Cabeza
-2- Cuerpo
-3- Ruedas
+1. Cabeza
+2. Cuerpo
+3. Ruedas
 
 ### Cabeza 🤖
 

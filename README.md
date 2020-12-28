@@ -5,13 +5,15 @@ _En este curso de robótica vamos a crear un robot capaz de identificar si exist
 _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro robot, lo podrás encontrar en el siguiente enlace:_
 * [ID Robot](https://github.com/manuTGrt/robotica/blob/main/id%20robot.txt)
 
-## Comenzando 🚀
+## Cada Pieza 🧩
 
-### Cada Pieza 🧩
+1- Cabeza
+2- Cuerpo
+3- Ruedas
 
-#### Cabeza 🤖
+### Cabeza 🤖
 
-##### Motor de movimiento 🤖
+#### Motor de movimiento 🤖
 
 _Empezamos el experimento comprobando que leíamos correctamente el giro de la rueda que posteriormente usaremos para el movimiento de la cabeza. Este movimiento lo hacemos inicialmente con la mano._
 ![Movimiento del motor a mano con K=0.3](https://github.com/manuTGrt/robotica/blob/main/fotos/cabeza_k0,3_Movido_M_A_color.jpg)
@@ -28,7 +30,7 @@ _Esto lo podemos ver con la siguiente gráfica._
 - En color verde tenemos el movimiento que debería seguir el motor en una simulación en la que el movimiento sería perfecto.
 - En color rojo tenemos el movimiento real que ha seguido el motor, con la ganancia en 0.3, como vemos, es casi perfecto.
 
-##### Sensor sonar 🤖
+#### Sensor sonar 🤖
 _Este es el sensor que irá leyendo los obstáculos que se encuentre, para poder esquivarlos sin sufrir un accidente._
 
 _Lo primero que hicimos fue hacer el dibujo del robot, haciendo que el dibujo moviera la cabeza de manera simulada._
@@ -39,6 +41,8 @@ _Posteriormente hacemos que se dibuje una simulación de lo que sería la lectur
 
 _Luego lo implementamos en el robot y comprobamos que gira la cabeza y va leyendo los obstáculos que se va encontrando._
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
+
+
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 

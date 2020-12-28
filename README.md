@@ -11,7 +11,7 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 2. Cuerpo
 3. Ruedas
 
-### Cabeza 🤖
+### 1. Cabeza 🤖
 
 #### Motor de movimiento 🤖
 
@@ -42,6 +42,9 @@ _Posteriormente hacemos que se dibuje una simulación de lo que sería la lectur
 _Luego lo implementamos en el robot y comprobamos que gira la cabeza y va leyendo los obstáculos que se va encontrando._
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
 
+### 2. Cuerpo
+
+### 3. Ruedas
 
 
 Mira **Deployment** para conocer como desplegar el proyecto.

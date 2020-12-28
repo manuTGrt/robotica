@@ -8,8 +8,8 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 ## Cada Pieza 🧩
 
 1. [Cabeza](https://github.com/manuTGrt/robotica#1-cabeza-)
-2. [Cuerpo](https://github.com/manuTGrt/robotica#2-cuerpo)
-3. [Ruedas](https://github.com/manuTGrt/robotica#3-ruedas)
+2. [Cuerpo](https://github.com/manuTGrt/robotica#2-cuerpo-)
+3. [Ruedas](https://github.com/manuTGrt/robotica#3-ruedas-)
 
 ### 1. Cabeza 🤖
 

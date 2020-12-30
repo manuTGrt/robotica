@@ -72,7 +72,15 @@ Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disp
     - 3- Girando la cabeza con sonar.
     - 4- Girando sobre sí mismo.
     - 5- Marcha atrás.
-
+  - Al final del fichero manda el comando "para", que ejecutará la función "para" para parar por completo el robot.
+- para.m: Contiene la programación que se encarga de parar el robot. En caso de tener algún fallo, podemos ejecutarlo desde la línea de comandos y pararemos manualmente el robot.
+- Signal_reading_odo.m: Contiene la programación que se encarga de leer las señales del sensor sonar y de los encoders de los motores de la cabeza y las ruedas para evitar oscilaciones en los procesos de control del giro de la cabeza, las consultas al estado de los  motores de tracción solo se hacen en los estados necesarios.
+  - Si está en el estado 3:
+    - Significa que está girando la cabeza y, por tanto, no lee los encoders de las ruedas pero sí el de la cabeza.
+  - Si no está en el estado 3:
+    - Significa que la cabeza no está girando y, por tanto, no lee el encoder de la cabeza pero sí los de las ruedas.
+- Traction_motor_control.m: Es el encargado de mandar las señales de control a los motores, controlando la velocidad máxima a la que se mueven en cada uno de los sentidos.
+- WiFi_connection.m: Es el encargado de realizar la conexión mediante wifi del programa MatLab con el robot.
 
 Mira **Deployment** para conocer como desplegar el proyecto.
 

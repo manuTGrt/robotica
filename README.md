@@ -16,7 +16,12 @@ _Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro
 _El cuerpo del robot es su cerebro, el que controla todos los motores y sensores de cada parte del robot._
 
 * Montaje
+
 _El montaje del robot se realiza con piezas lego, con las que poco a poco vamos dando forma al robot para así acoplar todas y cada una de las partes._
+
+_El profesor nos ha dejado un vídeo para que el montaje del robot sea más rápido y sencillo para nosotros._
+
+<p align="center"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/montaje_robot.gif"></p>
 
 ### 2. Cabeza 🤖
 

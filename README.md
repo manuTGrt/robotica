@@ -61,7 +61,8 @@ También hemos añadido un pulsador en el frontal, para que si el sensor sonar n
 ## Puesta en funcionamiento
 
 Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disposición una carpeta:
-**Carpeta** - [carpeta](https://github.com/manuTGrt/robotica/tree/main/mover_robot)
+
+- [**Carpeta**](https://github.com/manuTGrt/robotica/tree/main/mover_robot)
 
 Ésta contiene los siguientes elementos:
 - maquina_estado_basica.m: Contiene la programación del robot en su mayoría, para que vaya cambiando de estado según la situación en que se encuentre.

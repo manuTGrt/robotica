@@ -21,7 +21,7 @@ _El montaje del robot se realiza con piezas lego, con las que poco a poco vamos 
 
 _El profesor nos ha dejado un vídeo para que el montaje del robot sea más rápido y sencillo para nosotros._
 
-<p align="center"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/montaje_robot.gif"></p>
+<p align="center"><a href="http://www.legoengineering.com/the-harvester-a-quick-ev3-robot-build/"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/montaje_robot.gif"></a></p>
 
 ### 2. Cabeza 🤖
 

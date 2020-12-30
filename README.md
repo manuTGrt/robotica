@@ -67,11 +67,11 @@ Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disp
 - maquina_estado_basica.m: Contiene la programación del robot en su mayoría, para que vaya cambiando de estado según la situación en que se encuentre.
   - Al principio de este fichero limpiamos todas las variables necesarias, luego declaramos e inicializamos las variables necesarias, además de iniciar los motores del robot.
   - Los diferentes estados son:
-    - 1. Marchando para delante.
-    - 2. Parando.
-    - 3. Girando la cabeza con sonar.
-    - 4. Girando sobre sí mismo.
-    - 5. Marcha atrás.
+    - 1- Marchando para delante.
+    - 2- Parando.
+    - 3- Girando la cabeza con sonar.
+    - 4- Girando sobre sí mismo.
+    - 5- Marcha atrás.
 
 
 Mira **Deployment** para conocer como desplegar el proyecto.

@@ -54,6 +54,7 @@ _El profesor nos ha dejado un vídeo para que el montaje del robot sea más ráp
 <p align="center"><a href="http://www.legoengineering.com/the-harvester-a-quick-ev3-robot-build/"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/montaje_robot.gif"></a></p>
 
 <p>La cabeza del robot la hemos modificado de sitio para que esté centrada.
+
 También hemos añadido un pulsador en el frontal, para que si el sensor sonar no detecta ningún objeto, éste se pulse y pueda retroceder y buscar otro camino.</p>
 
 

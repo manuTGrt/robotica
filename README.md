@@ -23,6 +23,8 @@ _El profesor nos ha dejado un vídeo para que el montaje del robot sea más ráp
 
 <p align="center"><a href="http://www.legoengineering.com/the-harvester-a-quick-ev3-robot-build/"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/montaje_robot.gif"></a></p>
 
+_La cabeza del robot la hemos modificado de sitio. En el siguiente apartado muestro las pruebas que hemos realizado._
+
 ### 2. Cabeza 🤖
 
 #### Motor de movimiento ⚙️

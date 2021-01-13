@@ -155,8 +155,10 @@ while  (readTouch(Pulsador)==0)
     %-----------------------------------------------
     % Representa el robot
     %------------------------------------
+    if(distancia(i)<30)
          mapa=pintar_robot_v2(x(i),y(i),theta(i),double(giro_cabeza(i))*pi/180,SR_robot,SR_cabeza,distancia(i),mapa);
-         drawnow   
+         drawnow
+    end
         %---------------------------------------
 
     %muestra el estado del sistema
@@ -201,8 +203,6 @@ while  (readTouch(Pulsador)==0)
                 end
              
             case 3 %girando cabeza
-
-                
                 if (t(i)>(desfase+Periodo+1.5)) %espera a que pasen el desfase+periodo mas 2 s
                     Power_cabeza=0; %para el giro de la cabeza
                     estado=4; %la transición a estado girando robot
@@ -302,3 +302,9 @@ end %del while
 % Para motores y cierra sensores
 %-------------------------------
  Para;
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Guarda el mapa
+%-------------------------------
+ save('mapa.dat','mapa','-ascii');

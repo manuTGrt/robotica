@@ -41,29 +41,38 @@ MAPA = imread('cuadro4.bmp');
 %Transformación para colocar correctamente el origen del Sistema de
 %Referencia
 MAPA(1:end,:,:)=MAPA(end:-1:1,:,:);
-image(MAPA);
-axis xy
+%image(MAPA);
+%axis xy
+
+delta=50;
+
+%genera la ruta óptima
+Optimal_path=A_estrella(MAPA, delta);
 
 %Condiciones iniciales 
-pose0=[10; 10; -pi/4];
-posef=[500; 100; -pi/4];
+pose0=[Optimal_path(1,1); Optimal_path(1,2); pi];
+posef=[Optimal_path(end,1); Optimal_path(end,2); pi];
 %pose0=[camino(end,1); camino(end,2); pi/2]; %el último punto es el mismo
 %que el primero
 %pose0=[10;10;pi];
 
+%Condiciones iniciales con camino A_estrella
+%pose0=[camino(1,1); camino(1,1); 0];
+%posef=[camino(end,end); camino(end,end); 0];
 
 %definir camino
 dd=5;
 da=dd;
 
 posicion_despegue=[pose0(1)+(dd*cos(pose0(3))) pose0(2)+(dd*sin(pose0(3)))];
-posicion_aterriza=[posef(1)+(da*cos(posef(3))) posef(2)+(da*sin(posef(3)))];
+posicion_aterriza=[posef(1)-(da*cos(posef(3))) posef(2)-(da*sin(posef(3)))];
 
-xc=[10 posicion_despegue(1) 20 40 60 70 posicion_aterriza(1) posef(1)];
-yc=[10 posicion_despegue(2) 20 40 40 60 posicion_aterriza(2) posef(2)];
+%xc=[10 posicion_despegue(1) 20 40 60 70 posicion_aterriza(1) posef(1)];
+%yc=[10 posicion_despegue(2) 20 40 40 60 posicion_aterriza(2) posef(2)];
 
 ds=1; %distancia entre puntos en cm.
-camino=funcion_spline_cubica_varios_puntos(xc,yc,ds)';
+camino=funcion_spline_cubica_varios_puntos(Optimal_path(:,1)',Optimal_path(:,2)',ds)';
+%camino=A_estrella(MAPA, 50);
 %--------------------------------
 
 
@@ -85,6 +94,7 @@ pose(:,k+1)=pose0;
 t(k+1)=t0;
 
 while (t0+h*k) < tf,
+    
     %actualización
     k=k+1;
     

@@ -1,4 +1,4 @@
-
+%ESTA ES LA ACTIVIDAD 6
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simulación del movimiento de un robot móvil
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

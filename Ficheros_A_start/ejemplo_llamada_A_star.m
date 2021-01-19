@@ -7,7 +7,7 @@
 clear all
 clc
 %Carga el fichero  BMP
-MAPA = imread('.\cuadro4.bmp');
+MAPA = imread('cuadro4.bmp');
 
 %Transformación para colocar correctamente el origen del Sistema de
 %Referencia

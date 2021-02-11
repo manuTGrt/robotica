@@ -118,6 +118,7 @@ La herramienta utilizada para la programación del robot es MatLab, en general h
 
 Para la conexión wifi, el profesor nos ha dejado un adaptador wifi de tamaño mini. También nos ha construido la programación de éste.
 
+El robot ha sido construido con piezas lego, utilizando el ladrillo ev3.
 
 ## Autores ✒️
 

@@ -20,7 +20,7 @@ Al comienzo de la asignatura el profesor no recomendó guardar el id de nuestro 
 
 <p align="center"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/mover_cabeza_con_motor_manual.gif"></p>
 
-<p>Posteriormente, movemos la cabeza unos grados indicados, en los que vemos que, variando la ganancia, la cabeza se movía de forma inestable, llegando a la conclusión de que un buen valor de ganancia para que no sea inestable sea 0,3.
+<p>Posteriormente, movemos la cabeza unos grados indicados, en los que vemos que, variando la ganancia, la cabeza se movía de forma inestable, llegando a la conclusión de que un buen valor de ganancia para que no sea inestable sea 0.3.
 
 Luego, intentamos mover la cabeza, cambiando la referencia de los grados indicados previamente a un valor variable, el cual variamos con la rueda, teniendo en cuenta el valor de la ganancia para ajustarlo a su mejor valor, en mi caso 0.3.
 
@@ -54,7 +54,7 @@ El profesor nos ha dejado un vídeo para que el montaje del robot sea más rápi
 
 <p align="center"><a href="http://www.legoengineering.com/the-harvester-a-quick-ev3-robot-build/"><img src="https://github.com/manuTGrt/robotica/blob/main/videos/montaje_robot.gif"></a></p>
 
-<p>La cabeza del robot la hemos modificado de sitio para que esté centrada.
+<p>La cabeza del robot la hemos modificado de sitio para que esté centrada y pueda moverse.
 
 También hemos añadido un pulsador en el frontal, para que si el sensor sonar no detecta ningún objeto, éste se pulse y pueda retroceder y buscar otro camino.</p>
 
@@ -75,15 +75,19 @@ Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disp
     - 5- Marcha atrás.
   - Al final del fichero manda el comando "para", que ejecutará la función "para" para parar por completo el robot.
 - para.m: Contiene la programación que se encarga de parar el robot. En caso de tener algún fallo, podemos ejecutarlo desde la línea de comandos y pararemos manualmente el robot.
-- Signal_reading_odo.m: Contiene la programación que se encarga de leer las señales del sensor sonar y de los encoders de los motores de la cabeza y las ruedas para evitar oscilaciones en los procesos de control del giro de la cabeza, las consultas al estado de los  motores de tracción solo se hacen en los estados necesarios.
+- Signal_reading_odo.m: Contiene la programación que se encarga de leer las señales del sensor sonar y de los encoders de los motores de la cabeza y las ruedas para evitar oscilaciones en los procesos de control del giro de la cabeza y las ruedas, las consultas al estado de los  motores de tracción solo se hacen en los estados necesarios.
   - Si está en el estado 3:
     - Significa que está girando la cabeza y, por tanto, no lee los encoders de las ruedas pero sí el de la cabeza.
   - Si no está en el estado 3:
     - Significa que la cabeza no está girando y, por tanto, no lee el encoder de la cabeza pero sí los de las ruedas.
 - Traction_motor_control.m: Es el encargado de mandar las señales de control a los motores, controlando la velocidad máxima a la que se mueven en cada uno de los sentidos.
 - WiFi_connection.m: Es el encargado de realizar la conexión mediante wifi del programa MatLab con el robot.
+- calculo_odometria.m: Es la función que se encarga de calcular la odometría del robot teniendo en cuenta la distancia entre las ruedas y el radio de ellas. Ésta devuelve un vector con los ángulos calculados.
+- calculo_referencia.m: Ésta se encarga de calcular la referencia que tiene que seguir la cabeza.
+- mapa.dat: Es el fichero que generamos con la lectura del sonar, para formar un mapa de los obstáculos que ha ido encontrando y así ser conscientes de por qué gira el robot en los casos necesarios.
+- pintar_robot_v2.m: Esta función es la que se encarga de pintar el robot y actualizar su posición cuando éste se mueve.
+- referencia_cabeza.m: Es la función que devuelve el ángulo que tiene que girar la cabeza según la amplitud, el tiempo, el periodo y el desfase que le indiquemos por parámetros.
 
-Mira **Deployment** para conocer como desplegar el proyecto.
 
 
 ## Ejecutando las pruebas ⚙️

@@ -92,13 +92,13 @@ Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disp
 
 ## Ejecutando las pruebas ⚙️
 
-_Como menciono anteriormente, lo primero que hicimos fue mover la cabeza, después hicimos que la cabeza reconociera los obstáculos, posteriormente movíamos el robot sin tener en cuenta la cabeza, luego movimos el robot y, cuando la cabeza encontraba un obstáculo, éste se paraba y giraba la cabeza, moviendo el robot después 90º a la izquierda, y, por ultimo, al girar la cabeza generaba un mapa de los obstáculos que se encontraba y decidía hacia qué lado girar, pudiendo así completar un recorrido._
+<p>Como menciono anteriormente, lo primero que hicimos fue mover la cabeza, después hicimos que la cabeza reconociera los obstáculos, posteriormente movíamos el robot sin tener en cuenta la cabeza, luego movimos el robot y, cuando la cabeza encontraba un obstáculo, éste se paraba y giraba la cabeza, moviendo el robot después 90º a la izquierda, y, por ultimo, al girar la cabeza generaba un mapa de los obstáculos que se encontraba y decidía hacia qué lado girar, pudiendo así completar un recorrido.</p>
 
-_También hicimos que el robot siguiera un camino generado mediante una spline, de manera que hicimos tres caminos, uno corto, otro mediano, y otro largo en el que se quedaba aparcado. 19 enero 2021_
+<p>También hicimos que el robot siguiera un camino generado mediante una spline, de manera que hicimos tres caminos, uno corto, otro mediano, y otro largo en el que se quedaba aparcado. 19 enero 2021</p>
 
 ### Mover cabeza 🤖
 
-_Para mover la cabeza ejecutamos el siguiente script, en el que posteriormente fuimos modificando diferentes parámetros para que se comportara de la forma que nos interesase._
+<p>Para mover la cabeza ejecutamos el siguiente script, en el que posteriormente fuimos modificando diferentes parámetros para que se comportara de la forma que nos interesase.</p>
 
 ```MATLAB
 clear all
@@ -171,14 +171,16 @@ end
 drawnow
 stop(motor_B);
 ```
-_Primero la movemos, como vemos en este código, unos grados concretos, en este caso 90º._
+<p>Primero la movemos, como vemos en este código, unos grados concretos, en este caso 90º.</p>
 
-_Posteriormente modificamos las líneas necesarias expuestas en el siguiente código para moverla mediante el giro manual de otro motor._
+<p>Posteriormente modificamos las líneas necesarias expuestas en el siguiente código para moverla mediante el giro manual de otro motor.</p>
 
 ```MATLAB
 %grados=90;
 referencia(1)=readRotation(motor_A);
 ```
+
+__
 
 ### Y las pruebas de estilo de codificación ⌨️
 

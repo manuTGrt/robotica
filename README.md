@@ -180,7 +180,7 @@ stop(motor_B);
 referencia(1)=readRotation(motor_A);
 ```
 
-__
+<p></p>
 
 ### Y las pruebas de estilo de codificación ⌨️
 

@@ -175,7 +175,7 @@ _Primero la movemos, como vemos en este código, unos grados concretos, en este 
 
 _Posteriormente modificamos las líneas necesarias expuestas en el siguiente código para moverla mediante el giro manual de otro motor._
 
-```
+```MATLAB
 %grados=90;
 referencia(1)=readRotation(motor_A);
 ```

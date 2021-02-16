@@ -206,6 +206,10 @@ plot(t,angulo_cabeza)
   error(i)=referencia(i)-giro(i);
 ```
 
+<p>Aquí muestro una demostración de cómo la cabeza gira</p>
+
+![Movimiento de la cabeza](https://github.com/manuTGrt/robotica/blob/main/videos/movimiento_cabeza.gif)
+
 <p>Es entonces cuando implementamos la lectura del sonar, donde mapa es el vector en el que se encuentran todos y cada uno de los objetos dibujados.</p>
 
 ```MATLAB
@@ -216,6 +220,11 @@ distancia(i) = double(readDistance(mysonicsensor))*100;
 %los objetos
 mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabeza,double(distancia(i)),mapa);
 ```
+
+<p>Así reconoce el entorno mientras está moviendo la cabeza</p>
+
+![Reconocimiento del entorno con sonar](https://github.com/manuTGrt/robotica/blob/main/videos/mueve_cabeza_lee_sonar.gif)
+
 
 ### Y las pruebas de estilo de codificación ⌨️
 

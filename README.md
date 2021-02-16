@@ -201,10 +201,22 @@ plot(t,angulo_cabeza)
 <p>En el bucle de funcionamiento, tendremos que indicar también que gire tomando como referencia la función generada.</p>
 
 ```MATLAB
-    tiempo(i)=toc(tstart);
-    referencia(i)=referencia_cabeza(grados,tiempo(i),desfase,periodo);
-    error(i)=referencia(i)-giro(i);
+  tiempo(i)=toc(tstart);
+  referencia(i)=referencia_cabeza(grados,tiempo(i),desfase,periodo);
+  error(i)=referencia(i)-giro(i);
 ```
+
+<p>Es entonces cuando implementamos la lectura del sonar, donde mapa es el vector en el que se encuentran todos y cada uno de los objetos dibujados.</p>
+
+```MATLAB
+%leo la distancia
+distancia(i) = double(readDistance(mysonicsensor))*100;
+
+%muevo la cabeza del robot y apunto la distancia a la que se encuentran
+%los objetos
+mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabeza,double(distancia(i)),mapa);
+```
+
 ### Y las pruebas de estilo de codificación ⌨️
 
 _Explica que verifican estas pruebas y por qué_

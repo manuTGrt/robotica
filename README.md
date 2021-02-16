@@ -230,7 +230,6 @@ mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabe
 <p>Para mover el robot ya hemos hecho una máquina de estados en la que según el estado en el que se encuentre el robot podrá hacer diferentes cosas como:</p>
 
 1. marchando para adelante
-
 2. parando
 
 3. girando cabeza con sonar

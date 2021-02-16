@@ -99,6 +99,7 @@ Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disp
 ### Mover cabeza y lectura sonar 🤖
 
 <p>Para mover la cabeza ejecutamos el siguiente script, en el que posteriormente fuimos modificando diferentes parámetros para que se comportara de la forma que nos interesase.</p>
+
 ```MATLAB
 clear all
 clc
@@ -173,12 +174,14 @@ stop(motor_B);
 <p>Primero la movemos, como vemos en este código, unos grados concretos, en este caso 90º.</p>
 
 <p>Posteriormente modificamos las líneas necesarias expuestas en el siguiente código para moverla mediante el giro manual de otro motor.</p>
+
 ```MATLAB
 %grados=90;
 referencia(1)=readRotation(motor_A);
 ```
 
 <p>Luego hicimos que moviera la cabeza de un lado a otro y por último al centro.</p>
+
 ```MATLAB
 %con esto inicializamos las variables
 grados=90;
@@ -196,6 +199,7 @@ plot(t,angulo_cabeza)
 ```
 
 <p>En el bucle de funcionamiento, tendremos que indicar también que gire tomando como referencia la función generada.</p>
+
 ```MATLAB
     tiempo(i)=toc(tstart);
     referencia(i)=referencia_cabeza(grados,tiempo(i),desfase,periodo);

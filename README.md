@@ -332,7 +332,7 @@ end
 
 %---------------------
 %Manda los comandos de control a los motores
-%-------------        
+%---------------------      
 Traction_motor_control;
 ```
 
@@ -346,7 +346,7 @@ Para la conexión wifi, el profesor nos ha dejado un adaptador wifi de tamaño m
 
 El robot ha sido construido con piezas lego, utilizando el ladrillo ev3.
 
-## Autores ✒️
+## Autor ✒️
 
 _Este proyecto ha sido realizado por:_
 
@@ -355,18 +355,4 @@ _Este proyecto ha sido realizado por:_
 _Con ayuda del profesor Fernando Gómez Bravo, que ha llevado el seguimiento y resuelto todas las dudas sobre este proyecto_
 
 
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
-
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo.
-* Da las gracias públicamente 🤓.
-* etc.
-
-
-
 ---
-⌨️ con ❤️ por [manuTGrt](https://github.com/manuTGrt) 😊

@@ -237,10 +237,103 @@ mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabe
 
 <p>Con esta máquina de estados comprobamos que, mientras no haya problemas, el robot seguirá andando recto, en cambio, cuando se encuentre un obstáculo, éste pasa al estado 2, el cual lo para y comprueba que, si no se ha chocado ni hay un obstáculo cerca, vuelve al estado 1 para avanzar hacia adelante, si ha detectado un obstáculo cerca pasa al estado 3, en el que gira la cabeza para decidir el giro necesario, y, si se ha chocado, pasa al estado 5, el cual da marcha atrás y vuelve al estado 2 y decidir en qué situación está.</p>
 
-_Explica que verifican estas pruebas y por qué_
+_Las comprobaciones en cada uno de los estados son:_
 
+```MATLAB
+switch estado
+      case 1 %andando hacia delante
+          %if (readDistance(Sonar)<stop_distance) %si la distancia es menor que 35 para
+           if (distancia(i)<stop_distance) || (readTouch(Detecta_colision)==1)%si la distancia es menor que 35 o choca para
+              estado=2; %transición de estado de paro
+              transicion=i; %indice que marca el inicio del estado 2
+          end
+
+      case 2 %parando
+          if (vel==0)
+              if (distancia(i)>stop_distance) && (readTouch(Detecta_colision)==0)
+                  estado=1; %la transición a estado marcha hacia delante
+                  transicion=i; %indice que marca el inicio del estado 1
+              elseif (distancia(i) < stop_distance)       
+                  estado=3; %transición a estado girando cabeza
+                  transicion=i; %indice que marca el inicio del estado 3
+                  desfase=t(transicion)+1;
+              else %Si hay choque
+                  estado=5; %la transición a estado marcha hacia delante
+                  transicion=i; %indice que marca el inicio del estado 1
+              end
+          end
+
+      case 3 %girando cabeza    
+          if(t(i)>(desfase+Periodo+1.5)) %espera a que pasen el desfase+periodo mas 2s
+              Power_cabeza=0; %para el giro de la cabeza
+              estado=4; %la transición a estado girando robot
+              transicion=i; %indice que marca el inicio del estado 4
+          end
+
+      case 4 %girando robot
+          if(t(i)-t(transicion)>t_giro)
+              estado=2;
+              transicion=i;
+          end
+          %estado=5; %la transición a estado marcha atrás
+          %transicion=i; %indice que marca el inicio del estado 5
+
+     case 5 %marcha atrás
+          if (t(i)-t(transicion)>t_marcha_atras)                  
+              estado=2; %transición a estado girando cabeza
+              transicion=i; %indice que marca el inicio del estado 2                 
+          end
+
+end
 ```
-Da un ejemplo
+
+_Las indicaciones para los movimientos de los motores son:_
+
+```MATLAB
+switch estado
+      case 1 %andando hacia delante
+      %establece los valores de control
+          vel=20;
+          Power1=vel;
+          Power2=vel;
+
+      case 2 %parando
+        %establece los valores de control
+          vel=0;
+          Power1=vel;
+          Power2=vel;
+
+      case 3 %girando cabeza
+          %cálculo de la referencia
+              referencia(i)=referencia_cabeza(Amplitud,t(i),Periodo,desfase);
+          %cálculo del error
+              error_cabeza(i)=(referencia(i)-giro_cabeza(i));
+          %ganancia del controlador proporcional
+              k=0.35;
+
+          %Definición del controlador
+              controlador=k*error_cabeza(i);
+
+          %Actuación sobre el motor
+              Power_cabeza=int8(controlador);
+
+      case 4 %girando sobre si mismo
+          vel=20;
+          Power1=vel;
+          Power2=-vel;
+
+      case 5 %andando hacia atrás
+          %establece los valores de control
+         vel=-20;
+         Power1=vel;
+         Power2=vel;  
+
+end
+
+%---------------------
+%Manda los comandos de control a los motores
+%-------------        
+Traction_motor_control;
 ```
 
 ## Construido con 🛠️

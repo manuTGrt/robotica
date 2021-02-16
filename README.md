@@ -39,8 +39,7 @@ Lo primero que hicimos fue hacer el dibujo del robot, haciendo que el dibujo mov
 <p>Posteriormente hacemos que se dibuje una simulación de lo que sería la lectura del sonar, a una distancia fija con un giro de la cabeza.</p>
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/lectura_sonic_simulada.jpg"></p>
 
-<p>Luego lo implementamos en el robot y comprobamos que gira la cabeza y va leyendo los obstáculos que se va encontrando.</p>
-<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
+<p>Luego lo implementamos en el robot y comprobamos que gira la cabeza y va leyendo los obstáculos que se va encontrando. En las pruebas muestro cómo lo hace.</p>
 
 ### 2. Cuerpo 🧠
 
@@ -208,7 +207,7 @@ plot(t,angulo_cabeza)
 
 <p>Aquí muestro una demostración de cómo la cabeza gira</p>
 
-![Movimiento de la cabeza](https://github.com/manuTGrt/robotica/blob/main/videos/movimiento_cabeza.gif)
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/movimiento_cabeza.gif"></p>
 
 <p>Es entonces cuando implementamos la lectura del sonar, donde mapa es el vector en el que se encuentran todos y cada uno de los objetos dibujados.</p>
 
@@ -223,7 +222,7 @@ mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabe
 
 <p>Así reconoce el entorno mientras está moviendo la cabeza</p>
 
-![Reconocimiento del entorno con sonar](https://github.com/manuTGrt/robotica/blob/main/videos/mueve_cabeza_lee_sonar.gif)
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
 
 
 ### Y las pruebas de estilo de codificación ⌨️

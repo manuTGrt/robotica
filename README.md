@@ -444,11 +444,11 @@ end
 
 <p>Primero un recorrido corto.</p>
 
-<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
+<p align="center"><img width="400px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
 
 <p>Luego, un recorrido largo donde quedaba aparcado al final.</p>
 
-<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/largo.gif"></p>
+<p align="center"><img width="400px" src="https://github.com/manuTGrt/robotica/blob/main/videos/largo.gif"></p>
 
 ## Construido con 🛠️
 

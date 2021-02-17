@@ -6,15 +6,15 @@
 clear all
 clc
 
-j=1;
+%j=1;
 
 global l
 global camino
 global pose
 global punto
 %cargamos el camino
-
 camino=load('camino.dat');
+
 global l
 l=3.5; %distancia entre rudas delanteras y traseras, tambien definido en modelo
 
@@ -30,8 +30,8 @@ pose0=[0; 0; pi/2];
 t0=0;
 
 %final de la simulación
-tf=100;
-tf=5;
+%tf=100;
+tf=15;
 
 %paso de integracion
 h=0.1;

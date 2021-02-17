@@ -93,7 +93,7 @@ Para poner en funcionamiento todo el robot, el profesor ha puesto a nuestra disp
 
 <p>Como menciono anteriormente, lo primero que hicimos fue mover la cabeza, después hicimos que la cabeza reconociera los obstáculos, posteriormente movíamos el robot sin tener en cuenta la cabeza, luego movimos el robot y, cuando la cabeza encontraba un obstáculo, éste se paraba y giraba la cabeza, moviendo el robot después 90º a la izquierda, y, por ultimo, al girar la cabeza generaba un mapa de los obstáculos que se encontraba y decidía hacia qué lado girar, pudiendo así completar un recorrido.</p>
 
-<p>También hicimos que el robot siguiera un camino generado mediante una spline, de manera que hicimos tres caminos, uno corto, otro mediano, y otro largo en el que se quedaba aparcado. 19 enero 2021</p>
+<p>También hicimos que el robot siguiera un camino generado mediante una spline, de manera que hicimos dos caminos, uno corto y otro largo en el que se quedaba aparcado.</p>
 
 ### Mover cabeza y lectura sonar 🤖
 
@@ -335,6 +335,120 @@ end
 %---------------------      
 Traction_motor_control;
 ```
+
+_La demostración de funcionamiento_
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/robot_sigue_recorrido.gif"></p>
+
+<p>Una vez que hemos hecho que el robot pueda resolver un camino de forma autónoma, programamos la forma de que el robot pudiera seguir un camino generado.</p>
+
+<p>Primero hicimos que girara durante un tiempo determinado de manera simulada.</p>
+
+```MATLAB
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simulación del movimiento de un robot móvil
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+clear all
+clc
+
+%j=1;
+
+global l
+global camino
+global pose
+global punto
+%cargamos el camino
+camino=load('camino.dat');
+
+global l
+l=3.5; %distancia entre rudas delanteras y traseras, tambien definido en modelo
+
+%Estos son distintos ejemplos de Condiciones iniciales
+
+%pose0=[15; 15; -pi/2];
+
+%pose0=[30; 30; 0];
+
+pose0=[0; 0; pi/2];
+
+%tiempo inicial
+t0=0;
+
+%final de la simulación
+%tf=100;
+tf=15;
+
+%paso de integracion
+h=0.1;
+%vector tiempo
+t=0:h:tf;
+%indice de la matriz
+k=0;
+
+%inicialización valores iniciales
+pose(:,k+1)=pose0;
+
+t(k+1)=t0;
+
+while (t0+h*k) < tf,
+    %actualización
+    k=k+1;
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %valores de los parámetros de control
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ % estas son las variables de control    
+ velocidad=5;
+ volante=-0.1416;
+
+ %ambas se combinan en la variable conducción
+ conduccion=[velocidad volante];
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ %para representar el punto onjetivo sobre la trayectoria
+
+ punto=[30 30];
+
+%metodo de integración ruge-kuta y representación gráfica
+
+pose(:,k+1)=kuta(t(k),pose(:,k),h,conduccion);
+
+end
+```
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/robot_giro_tiempo.gif"></p>
+
+<p>Después, lo pusimos en el robot.</p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/media_circunferencia.jpg"></p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/media_circunferencia.gif"></p>
+
+<p>También hicimos que siguiera una línea recta.</p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/en_linea_recta.jpg"></p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/linea_recta.gif"></p>
+
+<p>Luego, le indicamos que haga un cuarto de circunferencia hacia un lado y otro cuarto al otro lado, con lo que realiza la forma de una "S"</p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/con_spline.jpg"></p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/formaS.gif"></p>
+
+<p>Con esto, conectamos el robot mediante wifi e hicimos dos pruebas en la mesa central de la clase.</p>
+
+<p>Primero un recorrido corto.</p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
+
+<p>Luego, un recorrido largo donde quedaba aparcado al final.</p>
+
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/largo.gif"></p>
 
 ## Construido con 🛠️
 

@@ -432,7 +432,7 @@ end
 
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/en_linea_recta.jpg"></p>
 
-<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/linea_recta.gif"></p>
+<p align="center"><img width="300px" height="250px" src="https://github.com/manuTGrt/robotica/blob/main/videos/linea_recta.gif"></p>
 
 <p>Luego, le indicamos que haga un cuarto de circunferencia hacia un lado y otro cuarto al otro lado, con lo que realiza la forma de una "S"</p>
 
@@ -444,7 +444,7 @@ end
 
 <p>Primero un recorrido corto.</p>
 
-<p align="center"><img width="300px" height="250px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
 
 <p>Luego, un recorrido largo donde quedaba aparcado al final.</p>
 

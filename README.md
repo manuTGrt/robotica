@@ -438,13 +438,13 @@ end
 
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/con_spline.jpg"></p>
 
-<p align="center"><img width="350px"  height="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/formaS.gif"></p>
+<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/formaS.gif"></p>
 
 <p>Con esto, conectamos el robot mediante wifi e hicimos dos pruebas en la mesa central de la clase.</p>
 
 <p>Primero un recorrido corto.</p>
 
-<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
+<p align="center"><img width="300px" height="250px" src="https://github.com/manuTGrt/robotica/blob/main/videos/corto.gif"></p>
 
 <p>Luego, un recorrido largo donde quedaba aparcado al final.</p>
 

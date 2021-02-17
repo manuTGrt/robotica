@@ -438,7 +438,7 @@ end
 
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/con_spline.jpg"></p>
 
-<p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/formaS.gif"></p>
+<p align="center"><img max-width="300px" height=auto src="https://github.com/manuTGrt/robotica/blob/main/videos/formaS.gif"></p>
 
 <p>Con esto, conectamos el robot mediante wifi e hicimos dos pruebas en la mesa central de la clase.</p>
 

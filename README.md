@@ -225,7 +225,7 @@ mapa=pintar_robot_v2(0,0,0,double(readRotation(motor_B))*pi/180,SR_robot,SR_cabe
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/videos/robot_mueve_cabeza_y_lee_sonic.gif"></p>
 
 
-### Moviemiento del robot :robot:
+### Moviemiento del robot
 
 <p>Para mover el robot ya hemos hecho una máquina de estados en la que según el estado en el que se encuentre el robot podrá hacer diferentes cosas como:</p>
 
@@ -449,6 +449,471 @@ end
 <p>Luego, un recorrido largo donde quedaba aparcado al final.</p>
 
 <p align="center"><img width="400px" src="https://github.com/manuTGrt/robotica/blob/main/videos/largo.gif"></p>
+
+<p>Para esto hicimos el siguiente código.</p>
+
+```MATLAB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Controla la convertgencia del robot EV3 a un punto mediante una estrategia de control geométrico.
+% utiliza los encoders de los motores para estimar calcular la odometría
+% utiliz un  switch, para comenzar y terminar  la rutina
+%
+% Utiliza los script:
+% Traction_motor_control_laboratorio.m; Signal_reading_odo_path_following.m;  Para.m.
+%
+% Utiliza las funciones: calculo_calculo_odometria.m;
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 29/11/2020. FGB.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clc
+%clear all
+
+%variables control angulo del robot
+    clear yaw
+    clear x y theta
+    clear giro_derecho giro_izquierdo
+
+    global radio_rueda
+    global l %distancia entre ruedas
+
+    %mi_Robot = legoev3('USB')
+
+%----------------------------------------
+% Variables para la representación gráfica
+%------------------------------------------
+
+% %Crea los sistemas de referencia del robot y de la cabeza para la
+% %representación utilizando la función pinta_robot_v2
+%     SR_robot = hgtransform;
+%     SR_cabeza = hgtransform('Parent',SR_robot);
+%-----------------------------------------
+
+%------------------------------
+%Valores para la odometría
+      l=5.8;
+      radio_rueda=2.85
+
+%----------------------------
+
+
+% Declaración de sensores
+    Detecta_colision = touchSensor(mi_Robot,1); %Switch conectado al puerto 1.
+    Pulsador = touchSensor(mi_Robot,2); %Switch conectado al puerto 2.
+    Sonar = sonicSensor(mi_Robot); %definición del sonar
+
+% Declaración de los motores
+    motor_cabeza = motor(mi_Robot,'A') %motor de la cabeza
+    motor_izquierdo = motor(mi_Robot,'B') %Motor izquierdo
+    motor_derecho = motor(mi_Robot,'C') %Motor_derecho
+
+%Activacion de los motores
+    start(motor_cabeza);
+    start(motor_izquierdo);
+    start(motor_derecho);
+
+%inicializa velocidad de motores
+    Power1=0;
+    Power2=0;
+    Power_cabeza=0;
+
+
+%reset del encoder de motores
+    resetRotation(motor_cabeza);
+    resetRotation(motor_izquierdo);
+    resetRotation(motor_derecho);
+
+%indice inicial
+    i=1;
+
+%valores iniciales de los encoders
+    giro_derecho(i)=0;
+    giro_izquierdo(i)=0;
+
+
+%--------------------
+% Valores iniciales
+%--------------------
+%tiempo inicial
+    t(i)=0;
+    x(i)=0;
+    y(i)=0;
+    theta(i)=0;
+    yaw(i)=0;
+
+
+%comienza el bucle
+disp('pulsa el bumper para comenzar')
+
+%camino_x=0:1:40;
+%camino_y=0*camino_x;
+%camino=[camino_x' camino_y'];
+
+%definir camino
+dd=5;
+da=dd;
+
+posicion_despegue=[x(i)+(dd*cos(theta(i))) y(i)+(dd*sin(theta(i)))];
+posicion_aterriza=[100-(da*cos(pi/2)) 115-(da*sin(pi/2))];
+
+xc=[0 posicion_despegue(1) 30 60 posicion_aterriza(1) 100];
+yc=[0 posicion_despegue(2) 30 60 posicion_aterriza(2) 115];
+
+ds=1; %distancia entre puntos en cm.
+camino=funcion_spline_cubica_varios_puntos(xc,yc,ds)';
+%--------------------------------
+
+
+while(readTouch(Pulsador)==0)
+end
+
+while(readTouch(Pulsador)==1)
+end
+
+
+disp('comienza el bucle')
+tf=60;
+%referencia tiempo inicial
+    tstart = tic;
+
+while  (readTouch(Pulsador)==0) & (t(i)<tf)
+
+        i=i+1; %indice global
+        t(i)= toc(tstart); %tiempo global del bucle
+    %---------------------
+    %lectura señales y calculo del heading
+    %-------------------------------
+
+        Signal_reading_odo_path_following;
+
+      %-----------------------------
+       %Calcula Odometría
+      %--------------------------  
+    %calculo odometria
+        [x(i) y(i) theta(i)]=calculo_odometria(giro_derecho,giro_izquierdo,x,y,theta,i);
+    %para controlar el giro
+        yaw(i)=theta(i)*180/pi;
+
+%----------------------------
+% Control Geométrico
+
+%para converger a un punto
+%punto más cercano
+ orden_minimo= minima_distancia_new (camino, [x(i) y(i)]);
+
+ %para representar el punto onjetivo sobre la trayectoria
+ %hay que corregir el Look_ahead
+ Look_ahead=10;
+ seguir=orden_minimo+Look_ahead;
+ if(orden_minimo+Look_ahead>length(camino))
+     seguir=length(camino);
+ end
+ punto=[camino(seguir,1), camino(seguir, 2)];
+
+ %punto=[0 40];    
+
+ delta= (x(i)-punto(1))*sin(theta(i))-(y(i)-punto(2))*cos(theta(i));
+
+ LH=sqrt((x(i)-punto(1))^2+(y(i)-punto(2))^2);
+
+ rho=2*delta/LH^2;
+
+%Control proporcional de la velocidad
+ Kp=1.1;
+ %final=[camino(end,1) camino(end,2)]; %para converger al final del camino
+ final=punto; %para converger a un punto
+ Distance_to_end=sqrt((x(i)-final(1))^2+(y(i)-final(2))^2);
+ velocidad=Kp*Distance_to_end;
+
+ if velocidad>17
+     velocidad=17;
+ end
+
+ if Distance_to_end<3
+     break
+ end
+
+ %-------------------------------------
+ % modelo Inverso
+ %-------------------------------------
+
+    velocidad_derecha=velocidad*(1+l*rho)/radio_rueda;
+
+    velocidad_izquierda=velocidad*(1-l*rho)/radio_rueda;
+
+%---------------------------------------------------
+% Cversión de velocidad a potencia
+    potencia_equivalente=7.0;
+
+    Power1_a(i)=velocidad_derecha*potencia_equivalente;
+    Power2_a(i)=velocidad_izquierda*7.0;
+
+    Power1=Power1_a(i);
+    Power2=Power2_a(i);
+
+      %---------------------
+        %Manda los comandos de control a los motores
+      %-------------        
+        Traction_motor_control_laboratorio;
+
+end %del while
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Para motores y cierra sensores
+%-------------------------------
+ Para;
+
+% plot(t,giro_izquierdo)
+% hold on
+% plot(t,giro_derecho)
+
+velocidad_izquierda
+giro_izquierdo(end)/t(end)
+
+velocidad_derecha
+giro_derecho(end)/t(end)
+
+figure
+
+plot(x,y)
+hold on;
+plot(camino(:,1),camino(:,2));
+
+axis equal
+
+%axis([0 90 0 90]);
+
+```
+
+### Simulación de resolución de camino y aparcamiento.
+
+<p>Por último, hicimos una simulación que, cuando se tiene un mapa determinado, la función "A_estrella" se encarga de generar un camino para que el robot no se choque, después se genera el camino con una spline y lo recorre, al llegar al final genera un camino para aparcar y aparca.</p>
+
+```MATLAB
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simulación del movimiento de un robot móvil
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+clear all
+clc
+
+j=1;
+
+%joy = vrjoystick(1);
+
+global l
+global radio_rueda
+global camino
+global pose
+global pose2
+global punto
+%cargamos el camino
+
+%camino=load('camino.dat');
+
+%x=10:0.5:80;
+%y=10*ones(size(x));
+%xd=70;
+%yd=80;
+%ds=1;
+%phi=atan(yd/xd);
+
+%x=0:ds*cos(phi):xd;
+%y=0:ds*sin(phi):yd;
+
+%camino=[x' y'];
+
+l=3.5; %semidistancia entre rudas delanteras y traseras, tambien definido en modelo
+radio_rueda=1;
+
+%Carga el fichero  BMP
+
+MAPA = imread('micuadro.bmp');
+
+%Transformación para colocar correctamente el origen del Sistema de
+%Referencia
+MAPA(1:end,:,:)=MAPA(end:-1:1,:,:);
+%image(MAPA);
+%axis xy
+
+delta=50;
+
+%genera la ruta óptima
+Optimal_path=A_estrella(MAPA, delta);
+
+%Condiciones iniciales
+pose0=[Optimal_path(1,1); Optimal_path(1,2); pi/2];
+posef=[Optimal_path(end,1); Optimal_path(end,2); 3*pi/2];
+%pose0=[camino(end,1); camino(end,2); pi/2]; %el último punto es el mismo
+%que el primero
+%pose0=[10;10;pi];
+
+%Condiciones iniciales con camino A_estrella
+%pose0=[camino(1,1); camino(1,1); 0];
+%posef=[camino(end,end); camino(end,end); 0];
+
+%definir camino
+dd=5;
+da=dd;
+
+posicion_despegue=[pose0(1)+(dd*cos(pose0(3))) pose0(2)+(dd*sin(pose0(3)))];
+posicion_aterriza=[posef(1)-(da*cos(posef(3))) posef(2)-(da*sin(posef(3)))];
+
+xc=[pose0(1) posicion_despegue(1) Optimal_path(2:end-1,1)' posicion_aterriza(1) posef(1)];
+yc=[pose0(2) posicion_despegue(2) Optimal_path(2:end-1,2)' posicion_aterriza(2) posef(2)];
+
+ds=1; %distancia entre puntos en cm.
+camino=funcion_spline_cubica_varios_puntos(xc,yc,ds)';
+%camino=A_estrella(MAPA, 50);
+%--------------------------------
+
+
+t0=0;
+
+%final de la simulación
+tf=70;
+
+%paso de integracion
+h=0.1;
+%vector tiempo
+t=0:h:tf;
+%indice de la matriz
+k=0;
+
+%inicialización valores iniciales
+pose(:,k+1)=pose0;
+
+t(k+1)=t0;
+
+while (t0+h*k) < tf,
+
+    %actualización
+    k=k+1;
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ %punto más cercano
+ orden_minimo= minima_distancia_new (camino, pose(1:2,k));
+
+ %para representar el punto onjetivo sobre la trayectoria
+ %hay que corregir el Look_ahead
+ Look_ahead=20;
+ seguir=orden_minimo+Look_ahead;
+ if(orden_minimo+Look_ahead>length(camino))
+     seguir=length(camino);
+ end
+ punto=[camino(seguir,1), camino(seguir, 2)];
+
+    delta = (pose(1,k)-punto(1))*sin(pose(3,k))-(pose(2,k)-punto(2))*cos(pose(3,k));
+    LH=sqrt((pose(1,k)-punto(1))^2 + (pose(2,k)-punto(2))^2);
+    rho=2*delta/LH^2;
+
+    %V0=10;
+    Distancia_al_final=sqrt((pose(1,k)-camino(end,1))^2 + (pose(2,k)-camino(end,2))^2);
+
+    V0=1*LH;
+    if(V0>50)
+        V0=50;
+    end
+
+    W=V0*rho;
+    %-----------------------------------------
+    %V0=-V0;
+    %--------------
+    %Modelo inverso
+    velocidad_derecha=(1/radio_rueda)*(V0+W*l);
+    %velocidad_derecha=velocidad*(1+1*rho)/radio_rueda;
+    velocidad_izquierda=(1/radio_rueda)*(V0-W*l);
+    %velocidad_izquierda=velocidad*(1+1*rho)/radio_rueda;
+    %--------------
+
+    conduccion=[velocidad_derecha velocidad_izquierda];
+
+%metodo de integración ruge-kuta
+
+%pose(:,k+1)=kuta_diferencial(t(k),pose(:,k),h,conduccion);
+pose(:,k+1)=kuta_diferencial_mapa(t(k),pose(:,k),h,conduccion,MAPA);
+
+end
+
+%PROGRAMO EL APARCAMIENTO
+%genero el camino del aparcamiento
+Optimal_path2=[posef(1) posef(2);posicion_aterriza(1) posicion_aterriza(2);375 75;325 75];
+camino=funcion_spline_cubica_varios_puntos(Optimal_path2(:,1)',Optimal_path2(:,2)',ds)';
+
+%ahora, la posición inicial de este bucle es la final del anterior
+pose0=[posef(1); posef(2); posef(3)];
+
+%t0=0; Esta variable no cambia
+
+%final de la simulación -- amplio en 3 segundos el tiempo de finalización
+tf=tf+30;
+
+%paso de integracion -- Da igual si lo dejo, ya que no cambia
+%h=0.1;
+%vector tiempo -- Tengo que aumentarlo ya que el tiempo de finalización ha
+%cambiado
+t=0:h:tf;
+%indice de la matriz -- Lo comento porque tene que continuar con el mismo
+%valor del bucle anterior
+%k=0;
+
+%inicialización valores iniciales
+pose(:,k+1)=pose0;
+
+t(k+1)=t0;
+
+while (t0+h*k) < tf,
+     %actualización
+    k=k+1;
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ %punto más cercano
+ orden_minimo= minima_distancia_new (camino, pose(1:2,k));
+
+ %para representar el punto onjetivo sobre la trayectoria
+ %hay que corregir el Look_ahead
+ Look_ahead=10; %para el aparcamiento necesitamos más precisión en el seguimiento de la línea
+ seguir=orden_minimo+Look_ahead;
+ if(orden_minimo+Look_ahead>length(camino))
+     seguir=length(camino);
+ end
+ punto=[camino(seguir,1), camino(seguir, 2)];
+
+    delta = (pose(1,k)-punto(1))*sin(pose(3,k))-(pose(2,k)-punto(2))*cos(pose(3,k));
+    LH=sqrt((pose(1,k)-punto(1))^2 + (pose(2,k)-punto(2))^2);
+    rho=2*delta/LH^2;
+
+    Distancia_al_final=sqrt((pose(1,k)-camino(end,1))^2 + (pose(2,k)-camino(end,2))^2);
+
+    V0=1*LH;
+    if(V0>20)
+        V0=20;
+    end
+
+    W=V0*rho;
+    %Modelo inverso
+    velocidad_derecha=(1/radio_rueda)*(V0+W*l);
+    %velocidad_derecha=velocidad*(1+1*rho)/radio_rueda;
+    velocidad_izquierda=(1/radio_rueda)*(V0-W*l);
+    %velocidad_izquierda=velocidad*(1+1*rho)/radio_rueda;
+    %--------------
+
+    conduccion=[-velocidad_derecha -velocidad_izquierda]; %le cambio el signo a los motores para que el robot vaya marcha atrás
+
+%metodo de integración ruge-kuta
+
+%pose(:,k+1)=kuta_diferencial(t(k),pose(:,k),h,conduccion);
+pose(:,k+1)=kuta_diferencial_mapa(t(k),pose(:,k),h,conduccion,MAPA);
+end
+```
+
+_Demostración de la simulación_
+
+<p align="center"><img width="400px" src="https://github.com/manuTGrt/robotica/blob/main/videos/simulacion_A_estrella.gif"></p>
 
 ## Construido con 🛠️
 

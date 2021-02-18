@@ -47,7 +47,7 @@ Lo primero que hicimos fue hacer el dibujo del robot, haciendo que el dibujo mov
 
 #### Montaje
 
-<p>El montaje del robot se realiza con piezas lego, con las que poco a poco vamos dandole forma para así acoplar todas y cada una de las partes.
+<p>El montaje del robot se realiza con piezas lego, con las que poco a poco vamos dándole forma para así acoplar todas y cada una de las partes.
 
 El profesor nos ha dejado un vídeo para que el montaje del robot sea más rápido y sencillo para nosotros.</p>
 
@@ -55,7 +55,7 @@ El profesor nos ha dejado un vídeo para que el montaje del robot sea más rápi
 
 <p>La cabeza del robot la hemos modificado de sitio para que esté centrada y pueda moverse.
 
-También hemos añadido un pulsador en el frontal, para que si el sensor sonar no detecta ningún objeto, éste se pulse y pueda retroceder y buscar otro camino.</p>
+También hemos añadido un pulsador en el frontal, para que, si el sensor sonar no detecta ningún objeto, éste se pulse y pueda retroceder y buscar otro camino.</p>
 
 ## Puesta en funcionamiento
 

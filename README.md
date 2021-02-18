@@ -434,7 +434,7 @@ end
 
 <p align="center"><img width="350px" height="230px" src="https://github.com/manuTGrt/robotica/blob/main/videos/linea_recta.gif"></p>
 
-<p>Luego, le indicamos que haga un cuarto de circunferencia hacia un lado y otro cuarto al otro lado, con lo que realiza la forma de una "S"</p>
+<p>Luego, le indicamos que haga un cuarto de circunferencia hacia un lado y otro cuarto al otro lado, con lo que realiza la forma de una "S".</p>
 
 <p align="center"><img width="300px" src="https://github.com/manuTGrt/robotica/blob/main/fotos/con_spline.jpg"></p>
 
